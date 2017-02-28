@@ -1,6 +1,8 @@
+
+
 # load the package
 library(momr)
-
+library(profvis)
 #' all the data in the package
 # data(package="momr")
 
@@ -14,7 +16,6 @@ data("hs_3.3_metahit_sample_dat_freq")
 #' But here is an exemple with the subset of the data for illustration purposes
 data(hs_3.3_metahit_genesize)
 norm.data <- normFreqRPKM(dat=hs_3.3_metahit_sample_dat_raw, cat=hs_3.3_metahit_genesize)
-
 
 #' CLUSTERING OF SAMPLES
 #pdf(file="visual_output.pdf") # open the pdf_visu
@@ -34,6 +35,7 @@ data("mgs_hs_3.3_metahit_sup500")
 #' project a list of genes onto the mgs
 genebag <- rownames(hs_3.3_metahit_sample_dat_freq)
 mgs <- projectOntoMGS(genebag=genebag, list.mgs=mgs_hs_3.3_metahit_sup500)
+
 #' extract the profile of a list of genes from the whole dataset
 mgs.dat <- extractProfiles(mgs, hs_3.3_metahit_sample_dat_freq, silent=FALSE)
 #' plot the barcodes
