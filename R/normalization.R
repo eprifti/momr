@@ -3,7 +3,7 @@
 #' @export
 #' @description converts a raw count matrix onto a frequency matrix using the RPKM normalization method.
 #'        This method consists of two consecutive steps, first dividing the raw counts by the length of 
-#'        the gene sequence and the second shrinking the signal per column to a sum of 1
+#'        the gene sequence and the second shrinking the signal per column to a sum of 1.
 #' @author Edi Prifti & Emmanuelle Le Chatelier
 #' @param dat : raw counts data matrix with gene_ids as rownames
 #' @param cat : the current working catalogue where the reads are mapped and counted, (i.e. hs_3.3_metahit, hs_3.9_metahit)

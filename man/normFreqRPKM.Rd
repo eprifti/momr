@@ -21,7 +21,7 @@ a normalized frequency matrix
 \description{
 converts a raw count matrix onto a frequency matrix using the RPKM normalization method.
        This method consists of two consecutive steps, first dividing the raw counts by the length of 
-       the gene sequence and the second shrinking the signal per column to a sum of 1
+       the gene sequence and the second shrinking the signal per column to a sum of 1.
 }
 \details{
 \code{normFreqRPKM}
