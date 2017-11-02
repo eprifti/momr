@@ -210,7 +210,8 @@ computeFilteredVectors <- function (profile, type = "mean", filt = 0, debug = FA
 #' @param filt : filtering based on percentage of prevalence to avoid noise for no signal samples by computeFilteredVectors.
 #' @param save : Save files after each step
 #' @return a list containing the final elements such as the 50 most connected genes, the mean vectors etc
-buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = TRUE, silent = TRUE, filt = 10, save=FALSE) { 
+buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = TRUE, silent = TRUE, filt = 10, save=FALSE) 
+{ 
   if (!is.list(genebag)) 
   {
     if(!silent) print("           Genebag is not a list, projecting onto the MGS catalogue ...")
@@ -246,9 +247,23 @@ buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = T
       dat <- dat[order(con, decreasing = T), ]
     }
     genebag.list.ordered[[i]] <- dat
-    size.max <- min(50, nrow(dat))
-    genebag.list.50[[i]] <- genebag.list.ordered[[i]][1:size.max,]
-  }
+    if(is.null(dim(dat)))
+    {
+      nr <- 1
+    }else
+    {
+      nr <- nrow(dat)
+    }
+    size.max <- min(50, nr)
+    if(nr==1)
+    {
+      genebag.list.50[[i]] <- genebag.list.ordered[[i]]
+    }else
+    {
+      genebag.list.50[[i]] <- genebag.list.ordered[[i]][1:size.max,]  
+    }
+  } # end for
+  
   if(!silent & conn) 
   {
     print("           Profiles re-ordering, filtering has been finished ...")
