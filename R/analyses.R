@@ -17,95 +17,156 @@
 #' @note New addon taking into account a trait for correlation, when it is a two class variable with the same number of elements
 #'      a correlation between both groups is performed
 testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)), 
-                           multiple.adjust = "BH", paired = FALSE, debug = FALSE) 
+                           multiple.adjust = "BH", paired = FALSE, debug = FALSE)
 {
-  trait.val <- names(table(trait))
+  
+  # Sanity checks
+  if(length(trait) != ncol(data))
+  {
+    stop("testRelations: please make sure that dimensions of the trait correspond to that of the data.")
+  }
+  
+  if(length(trait) != sum(restrict))
+  {
+    stop("testRelations: please make sure that dimensions of the trait corresponds to the restrict selection.")
+  }
+  
+  if(class(data) != "matrix")
+  {
+    print(paste("testRelations: Converting",class(data),"in matrix"))
+    data <- as.matrix(data)
+  }
+  
+  # prepare an empty result table.
   res <- as.data.frame(matrix(NA, nrow = nrow(data), ncol = 5))
   rownames(res) <- rownames(data)
   colnames(res) <- c("rho", "rho2", "p", "q", "status")
-  if (type != "spearman" & type != "pearson") {
-    if (length(table(trait)) != 2) {
-      stop("Sorry, you can't use this test. The trait should contain only two categories!")
+  
+  trait.val <- names(table(trait))
+  
+  if (type != "spearman" & type != "pearson") 
+  {
+    if (length(table(trait)) != 2) 
+    {
+      stop("testRelations: sorry, you can't use this test. The trait should contain only two categories!")
     }
-    if (type == "wilcoxon" | type == "t.test") {
-      if (type == "wilcoxon") {
-        if (debug) 
+    
+    # Categorical test
+    if (type == "wilcoxon" | type == "t.test") 
+    {
+      if (type == "wilcoxon") 
+      {
+        if (debug)
+        {
           print("Executing Wilcoxon test")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        }
+          
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- wilcox.test(data[i, restrict] ~ trait[restrict], 
-                             paired = paired)
+          tmp <- wilcox.test(data[i, restrict] ~ trait[restrict], paired = paired)
           res[i, "p"] <- tmp$p.value
-          if(res[i, "p"]=="NaN"){
+          
+          if(res[i, "p"]=="NaN")
+          {
             res[i, "status"] <- NA
-          } else {
+          } else 
+          {
             if (mean(data[i, restrict][trait == trait.val[1]]) > 
-                mean(data[i, restrict][trait == trait.val[2]])) {
+                mean(data[i, restrict][trait == trait.val[2]])) 
+            {
               res[i, "status"] <- trait.val[1]
-            } else {
+            } else 
+            {
               res[i, "status"] <- trait.val[2]
             }
           }
-        }
+        } # end for
         res[, 4] <- p.adjust(res[, "p"], method = multiple.adjust)
-      }
-      else {
+      } # end wilcoxon
+      else 
+      {
         if (debug) 
+        {
           print("Executing T test")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        }
+          
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- t.test(data[i, restrict] ~ trait[restrict], 
-                        paired = paired)
+          tmp <- t.test(data[i, restrict] ~ trait[restrict], paired = paired)
           res[i, "p"] <- tmp$p.value
-          if(res[i, "p"]=="NaN"){
+          
+          if(res[i, "p"]=="NaN")
+          {
             res[i, "status"] <- NA
-          } else {
+          } else 
+          {
             if (mean(data[i, restrict][trait == trait.val[1]]) > 
-                mean(data[i, restrict][trait == trait.val[2]])) {
+                mean(data[i, restrict][trait == trait.val[2]])) 
+            {
               res[i, "status"] <- trait.val[1]
-            } else {
+            } else 
+            {
               res[i, "status"] <- trait.val[2]
             }
           }
-        }
+        } # end for
         res[, 4] <- p.adjust(res[, "p"], method = multiple.adjust)
       }
     }
-    else {
-      stop("Sorry, your test does not exist! Available : spearman, pearson, t.test and wilcoxon")
+    else 
+    {
+      stop("testRelations: Sorry, your test does not exist! Available : spearman, pearson, t.test and wilcoxon")
     }
   }
   else {
-    if (type == "spearman") {
-      if (paired) {
+    if (type == "spearman") 
+    {
+      if (paired) 
+      {
         if (debug) 
+        {
           print("Entering correlation mode between two classes")
-        if (length(table(trait)) != 2 | table(trait)[1] != 
-            table(trait)[2]) {
-          stop("Sorry, trait does not seem to be a 2-level categorical variable or with the same prevalence")
+        }
+        
+        if (length(table(trait)) != 2 | table(trait)[1] != table(trait)[2]) 
+        {
+          stop("testRelations: Sorry, trait does not seem to be a 2-level categorical variable or with the same prevalence")
         }
         cl1 <- names(table(trait)[1])
         cl1.ind <- trait == cl1
         cl2 <- names(table(trait)[2])
         cl2.ind <- trait == cl2
         if (debug) 
+        {  
           print("Executing Spearman correlation")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        }
+        
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- Hmisc::rcorr(data[i, cl1.ind], data[i, 
-                                                     cl2.ind], type = "spearman")
+          
+          tmp <- Hmisc::rcorr(data[i, cl1.ind], data[i, cl2.ind], type = "spearman")
           res[i, 1] <- tmp$r[1, 2]
-          if (!is.na(res[i, 1])) {
-            if (res[i, 1] > 0) {
+          
+          if (!is.na(res[i, 1])) 
+          {
+            if (res[i, 1] > 0) 
+            {
               res[i, 5] <- "POS"
             }
-            else {
+            else 
+            {
               res[i, 5] <- "NEG"
             }
           }
@@ -113,22 +174,32 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)),
           res[i, 3] <- tmp$P[1, 2]
         }
         res[, 4] <- p.adjust(res[, "p"], method = multiple.adjust)
-      }
-      else {
+      } # end if paired
+      else 
+      {
         if (debug) 
+        {
           print("Executing Spearman correlation")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        }
+        
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- Hmisc::rcorr(data[i, restrict], trait[restrict], 
-                              type = "spearman")
+          
+          tmp <- Hmisc::rcorr(data[i, restrict], trait[restrict], type = "spearman")
           res[i, 1] <- tmp$r[1, 2]
-          if (!is.na(res[i, 1])) {
-            if (res[i, 1] > 0) {
+          
+          if (!is.na(res[i, 1])) 
+          {
+            if (res[i, 1] > 0) 
+            {
               res[i, 5] <- "POS"
             }
-            else {
+            else 
+            {
               res[i, 5] <- "NEG"
             }
           }
@@ -136,33 +207,43 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)),
           res[i, 3] <- tmp$P[1, 2]
         }
         res[, 4] <- p.adjust(res[, "p"], method = multiple.adjust)
-      }
-    }
+      } # end else unpaired
+    } # end spearman
     else {
-      if (paired) {
+      if (paired) 
+      {
         if (debug) 
+        {
           print("Entering correlation mode between two classes")
-        if (length(table(trait)) != 2 | table(trait)[1] != 
-            table(trait)[2]) {
-          stop("Sorry, trait does not seem to be a 2-level categorical variable or with the same prevalence")
         }
+          
+        if (length(table(trait)) != 2 | table(trait)[1] != table(trait)[2]) 
+        {
+          stop("testRelations: Sorry, trait does not seem to be a 2-level categorical variable or with the same prevalence")
+        }
+        
         cl1 <- names(table(trait)[1])
         cl1.ind <- trait == cl1
         cl2 <- names(table(trait)[2])
         cl2.ind <- trait == cl2
         print("Executing Pearson correlation")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- Hmisc::rcorr(data[i, cl1.ind], data[i, 
-                                                     cl2.ind], type = "pearson")
+          tmp <- Hmisc::rcorr(data[i, cl1.ind], data[i, cl2.ind], type = "pearson")
           res[i, 1] <- tmp$r[1, 2]
-          if (!is.na(res[i, 1])) {
-            if (res[i, 1] > 0) {
+          
+          if (!is.na(res[i, 1])) 
+          {
+            if (res[i, 1] > 0) 
+            {
               res[i, 5] <- "POS"
             }
-            else {
+            else 
+            {
               res[i, 5] <- "NEG"
             }
           }
@@ -170,22 +251,30 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)),
           res[i, 3] <- tmp$P[1, 2]
         }
         res[, 4] <- p.adjust(res[, "p"], method = multiple.adjust)
-      }
-      else {
+      } # end if paired
+      else 
+      {
         if (debug) 
+        {
           print("Executing Pearson correlation")
-        for (i in 1:nrow(data)) {
-          if (i%%1000 == 0) {
+        }
+        for (i in 1:nrow(data)) 
+        {
+          if (i%%1000 == 0 & !debug) 
+          {
             print(i)
           }
-          tmp <- Hmisc::rcorr(data[i, restrict], trait[restrict], 
-                              type = "pearson")
+          tmp <- Hmisc::rcorr(data[i, restrict], trait[restrict], type = "pearson")
           res[i, 1] <- tmp$r[1, 2]
-          if (!is.na(res[i, 1])) {
-            if (res[i, 1] > 0) {
+          
+          if (!is.na(res[i, 1])) 
+          {
+            if (res[i, 1] > 0) 
+            {
               res[i, 5] <- "POS"
             }
-            else {
+            else 
+            {
               res[i, 5] <- "NEG"
             }
           }
@@ -198,6 +287,8 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)),
   }
   return(res)
 }
+
+
 
 #' \code{hierClust} 
 #' @title hierClust
