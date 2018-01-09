@@ -210,85 +210,109 @@ computeFilteredVectors <- function (profile, type = "mean", filt = 0, debug = FA
 #' @param filt : filtering based on percentage of prevalence to avoid noise for no signal samples by computeFilteredVectors.
 #' @param save : Save files after each step
 #' @return a list containing the final elements such as the 50 most connected genes, the mean vectors etc
-buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = TRUE, silent = TRUE, filt = 10, save=FALSE) 
-{ 
-  if (!is.list(genebag)) 
+buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = TRUE, silent = TRUE, filt = 10, save = FALSE) 
+{
+  if(!is.list(genebag)) 
   {
-    if(!silent) print("           Genebag is not a list, projecting onto the MGS catalogue ...")
+    if (!silent) 
+    {
+      print("           Genebag is not a list, projecting onto the MGS catalogue ...")
+    }
     genebag.list <- projectOntoMGS(genebag = genebag, list.mgs = mgs.cat, res.filt.mode = "size", res.filt.threshold = 50)
-  } else 
-  {
+  }else {
     genebag.list <- genebag
   }
+  
   genebag.list.dat <- extractProfiles(genebag.list, profiles, silent = silent)
-  if(!silent) 
+  
+  if (!silent) 
   {
     print("           Profiles have been extracted for each MGS ...")
   }
-  if(save) 
+  
+  if (save) 
   {
-    saveRDS(genebag.list.dat, file="genebag.list.dat.rda", compress=FALSE)
+    saveRDS(genebag.list.dat, file = "genebag.list.dat.rda", compress = FALSE)
   }
-  if(!silent & save) 
-  {
+  
+  if (!silent & save) {
     print("           Profiles file has been saved in the working directory ...")
   }
+  
   genebag.list.ordered <- list()
   genebag.list.50 <- list()
-  if(!silent & conn) print("           Profiles will be reordered for each MGS using connectivity ...")
+  
+  if (!silent & conn) 
+  {
+    print("           Profiles will be reordered for each MGS using connectivity ...")
+  }
+  
   for (i in 1:length(genebag.list)) 
   {
-    if (i%%100 == 0 & !silent) print(i)
+    if (i %% 100 == 0 & !silent) 
+      print(i)
+    
     dat <- genebag.list.dat[[i]]
-    if (conn == TRUE) 
-    {
-      dat <- filterMat(as.matrix(dat), filt = filt) # EP: filter before the reodering makes more sense
-      con <- connectivity(prof = dat, soft=TRUE, method = "spearman")  # modified. Old script often did not reordered anything
-      dat <- dat[order(con, decreasing = T), ]
-    }
-    genebag.list.ordered[[i]] <- dat
-    if(is.null(dim(dat)))
-    {
+    
+    if (is.null(dim(dat))) {
       nr <- 1
-    }else
-    {
+    }
+    else {
       nr <- nrow(dat)
     }
+    
+    if(nr==0)
+    {
+      next()
+    }
+    
+    if (conn == TRUE) {
+      dat <- filterMat(as.matrix(dat), filt = filt)
+      con <- connectivity(prof = dat, soft = TRUE, method = "spearman")
+      dat <- dat[order(con, decreasing = T), ]
+    }
+    
+    genebag.list.ordered[[i]] <- dat
+    
     size.max <- min(50, nr)
-    if(nr==1)
+    if (nr == 1) 
     {
       genebag.list.50[[i]] <- genebag.list.ordered[[i]]
-    }else
+    }else 
     {
-      genebag.list.50[[i]] <- genebag.list.ordered[[i]][1:size.max,]  
+      genebag.list.50[[i]] <- genebag.list.ordered[[i]][1:size.max, ]
     }
-  } # end for
+  }
   
-  if(!silent & conn) 
+  
+  if (!silent & conn) 
   {
     print("           Profiles re-ordering, filtering has been finished ...")
   }
-  if(!silent & !conn) 
+  if (!silent & !conn) 
   {
     print("           Profiles filtering has been finished ...")
   }
   names(genebag.list.ordered) <- names(genebag.list.dat)
   names(genebag.list.50) <- names(genebag.list.dat)
-  if(save & conn) 
+  if (save & conn) 
   {
-    saveRDS(genebag.list.ordered, file="genebag.list.ordered.rda", compress=FALSE)
+    saveRDS(genebag.list.ordered, file = "genebag.list.ordered.rda", compress = FALSE)
   }
-  if(save) 
+  if (save) 
   {
-    saveRDS(genebag.list.50, file="genebag.list.50.rda", compress=FALSE)
+    saveRDS(genebag.list.50, file = "genebag.list.50.rda", compress = FALSE)
   }
+  
+  without.data <- unlist(lapply(lapply(genebag.list.50,nrow),is.null))
+  
   res <- list()
-  res$genebags <- genebag.list
-  res$genebags.all <- mgs.cat[names(genebag.list)]
-  res$mgs.profiles <- genebag.list.ordered
-  res$mgs.50 <- genebag.list.50
-  res$mean_vectors <- computeFilteredVectors(profile = res$mgs.50, type = "mean", filt = filt)  # corr
-  if(!silent) 
+  res$genebags <- genebag.list[!without.data]
+  res$genebags.all <- mgs.cat[names(genebag.list)[!without.data]]
+  res$mgs.profiles <- genebag.list.ordered[!without.data]
+  res$mgs.50 <- genebag.list.50[!without.data]
+  res$mean_vectors <- computeFilteredVectors(profile = res$mgs.50, type = "mean", filt = filt)
+  if (!silent) 
   {
     print("           The filtered tracer vectors have been created successfully ...")
   }
@@ -297,7 +321,7 @@ buildMgsFinal <- function (genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = T
   name <- paste(names(res$genebags), name)
   name <- gsub(" NA", "", name)
   res$taxonomy$name <- name
-  if(!silent) 
+  if (!silent) 
   {
     print("           All operations are finished ...")
   }
