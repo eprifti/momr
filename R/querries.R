@@ -194,7 +194,6 @@ computeFilteredVectors <- function (profile, type = "mean", filt = 0, debug = FA
 #' \code{buildMgsFinal} 
 #' @title buildMgsFinal
 #' @export
-#' @date December 20th 2013
 #' @description This function will take a vector of genes (to be transformed into a list of genebags) 
 #'      or a list of genebags and will extract the profiles. Next genes well be ordered by connectivity
 #'      which is to be computed for each group and the 50 most connected are selected to consitute the 
