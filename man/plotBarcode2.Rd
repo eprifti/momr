@@ -4,8 +4,15 @@
 \alias{plotBarcode2}
 \title{plotBarcode2}
 \usage{
-plotBarcode2(data, main = "", ylabl = "", ylabr = "",
-  col.axisl = "white", col.axisr = "white", box = FALSE)
+plotBarcode2(
+  data,
+  main = "",
+  ylabl = "",
+  ylabr = "",
+  col.axisl = "white",
+  col.axisr = "white",
+  box = FALSE
+)
 }
 \arguments{
 \item{data}{: a frequency matrix to be visualized}

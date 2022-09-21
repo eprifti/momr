@@ -4,9 +4,16 @@
 \alias{filt.hierClust}
 \title{filt.hierClust}
 \usage{
-filt.hierClust(mat.rho, hclust.method = "ward", margins = c(6, 6),
-  side.col.c = NULL, side.col.r = NULL, size = 10, plot = TRUE,
-  filt = 0.5)
+filt.hierClust(
+  mat.rho,
+  hclust.method = "ward",
+  margins = c(6, 6),
+  side.col.c = NULL,
+  side.col.r = NULL,
+  size = 10,
+  plot = TRUE,
+  filt = 0.5
+)
 }
 \arguments{
 \item{mat.rho}{: square correlation matrix with ids (can be used for also other than just samples)}

@@ -4,8 +4,7 @@
 \alias{plotCol}
 \title{plotCol: a matrix of colored cells when debugging}
 \usage{
-plotCol(col, nrow = 1, ncol = ceiling(length(col)/nrow),
-  txt.col = "black")
+plotCol(col, nrow = 1, ncol = ceiling(length(col)/nrow), txt.col = "black")
 }
 \arguments{
 \item{col}{: a vector of colors}

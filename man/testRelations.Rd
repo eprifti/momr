@@ -4,8 +4,15 @@
 \alias{testRelations}
 \title{testRelations}
 \usage{
-testRelations(data, trait, type, restrict = rep(TRUE, ncol(data)),
-  multiple.adjust = "BH", paired = FALSE, debug = FALSE)
+testRelations(
+  data,
+  trait,
+  type,
+  restrict = rep(TRUE, ncol(data)),
+  multiple.adjust = "BH",
+  paired = FALSE,
+  debug = FALSE
+)
 }
 \arguments{
 \item{data}{: frequency matrix with gene_ids in the rownames}

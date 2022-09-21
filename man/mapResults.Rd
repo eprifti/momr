@@ -4,8 +4,7 @@
 \alias{mapResults}
 \title{mapResults : merge data from // computing (the reduce process)}
 \usage{
-mapResults(folder = ".", pattern = "data_part", type = "rows",
-  verbose = TRUE)
+mapResults(folder = ".", pattern = "data_part", type = "rows", verbose = TRUE)
 }
 \arguments{
 \item{folder}{: the folder where the results are found}

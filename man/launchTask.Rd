@@ -4,8 +4,14 @@
 \alias{launchTask}
 \title{launchTask}
 \usage{
-launchTask(input, output, script, nb_proc = NULL, resume = TRUE,
-  pattern = "data_part")
+launchTask(
+  input,
+  output,
+  script,
+  nb_proc = NULL,
+  resume = TRUE,
+  pattern = "data_part"
+)
 }
 \arguments{
 \item{input}{: a folder containing elements that are to be processed}

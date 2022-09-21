@@ -4,8 +4,16 @@
 \alias{buildMgsFinal}
 \title{buildMgsFinal}
 \usage{
-buildMgsFinal(genebag = NULL, mgs.cat, mgs.taxo, profiles, conn = TRUE,
-  silent = TRUE, filt = 10, save = FALSE)
+buildMgsFinal(
+  genebag = NULL,
+  mgs.cat,
+  mgs.taxo,
+  profiles,
+  conn = TRUE,
+  silent = TRUE,
+  filt = 10,
+  save = FALSE
+)
 }
 \arguments{
 \item{genebag}{: a vector of genes to be projected onto mgs or a list of genebags, default = NULL.}

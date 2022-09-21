@@ -4,8 +4,12 @@
 \alias{downsizeGC.all}
 \title{downsizeGC.all}
 \usage{
-downsizeGC.all(data, levels = c(seq(1e+06, 1.1e+07, 1e+06)),
-  repetitions = 10, silent = FALSE)
+downsizeGC.all(
+  data,
+  levels = c(seq(1e+06, 1.1e+07, 1e+06)),
+  repetitions = 10,
+  silent = FALSE
+)
 }
 \arguments{
 \item{data}{: raw read count matrix with gene_ids as rownames}

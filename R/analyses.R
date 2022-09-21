@@ -31,7 +31,7 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)),
     stop("testRelations: please make sure that dimensions of the trait corresponds to the restrict selection.")
   }
   
-  if(class(data) != "matrix")
+  if(any(class(data) != "matrix"))
   {
     print(paste("testRelations: Converting",class(data),"in matrix"))
     data <- as.matrix(data)

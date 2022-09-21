@@ -4,8 +4,13 @@
 \alias{projectOntoMGS}
 \title{projectOntoMGS}
 \usage{
-projectOntoMGS(genebag, list.mgs, res.filt.mode = "size",
-  res.filt.threshold = 50, not_projected = TRUE)
+projectOntoMGS(
+  genebag,
+  list.mgs,
+  res.filt.mode = "size",
+  res.filt.threshold = 50,
+  not_projected = TRUE
+)
 }
 \arguments{
 \item{genebag}{: vector of gene_ids}

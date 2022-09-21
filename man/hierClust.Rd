@@ -4,9 +4,16 @@
 \alias{hierClust}
 \title{hierClust}
 \usage{
-hierClust(data, side = "col", dist = "correlation", cor.type = "spearman",
-  hclust.method = "ward.D", side.col.c = NULL, side.col.r = NULL,
-  plot = TRUE)
+hierClust(
+  data,
+  side = "col",
+  dist = "correlation",
+  cor.type = "spearman",
+  hclust.method = "ward.D",
+  side.col.c = NULL,
+  side.col.r = NULL,
+  plot = TRUE
+)
 }
 \arguments{
 \item{data}{: frequency matrix with gene_ids in the rownames}

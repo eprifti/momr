@@ -4,8 +4,13 @@
 \alias{downsizeMatrix}
 \title{downsizeMatrix}
 \usage{
-downsizeMatrix(data, level = 1.1e+07, HQ_reads = NULL, repetitions = 1,
-  silent = FALSE)
+downsizeMatrix(
+  data,
+  level = 1.1e+07,
+  HQ_reads = NULL,
+  repetitions = 1,
+  silent = FALSE
+)
 }
 \arguments{
 \item{data}{: raw read count matrix with gene_ids as rownames}

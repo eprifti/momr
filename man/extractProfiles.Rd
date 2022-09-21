@@ -4,8 +4,7 @@
 \alias{extractProfiles}
 \title{extractProfiles}
 \usage{
-extractProfiles(genebag, data, size.max = 15000, size.min = 1,
-  silent = TRUE)
+extractProfiles(genebag, data, size.max = 15000, size.min = 1, silent = TRUE)
 }
 \arguments{
 \item{genebag}{: vector or list of gene_ids}
