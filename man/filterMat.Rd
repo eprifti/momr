@@ -15,7 +15,7 @@ filterMat(mat, filt = 0)
 a cleaned matrix
 }
 \description{
-This function filters a matrix (mat) based on the rate of positive value (filt) 
+This function filters a matrix (mat) based on the rate of positive value (filt)
 in each individual under a given degree of presence (filt), all sparse values are put to 0.
 }
 \details{

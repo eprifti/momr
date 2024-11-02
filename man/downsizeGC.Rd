@@ -19,7 +19,7 @@ downsizeGC(data, level = 1.1e+07, repetitions = 30, silent = FALSE)
 a matrix containing in rows a vector for each repetition and in columns the number of downsized genes for each sample
 }
 \description{
-This function takes a matrix with raw reads counts and computes the number of genes 
+This function takes a matrix with raw reads counts and computes the number of genes
 at a given downsizing level a given number of times.
 }
 \details{

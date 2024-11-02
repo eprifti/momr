@@ -10,7 +10,7 @@ normFreqRPKM(dat, cat = NULL, HQ_reads = NULL)
 \item{dat}{: raw counts data matrix with gene_ids as rownames}
 
 \item{cat}{: the current working catalogue where the reads are mapped and counted, (i.e. hs_3.3_metahit, hs_3.9_metahit)
-This can also be a vector of genelength values that correspond to the number of rows in the dat matrix and are 
+This can also be a vector of genelength values that correspond to the number of rows in the dat matrix and are
 ordered respectively}
 
 \item{HQ_reads}{: To take into account a vector of high quality reads that are not mapped.}
@@ -20,7 +20,7 @@ a normalized frequency matrix
 }
 \description{
 converts a raw count matrix onto a frequency matrix using the RPKM normalization method.
-       This method consists of two consecutive steps, first dividing the raw counts by the length of 
+       This method consists of two consecutive steps, first dividing the raw counts by the length of
        the gene sequence and the second shrinking the signal per column to a sum of 1.
 }
 \details{

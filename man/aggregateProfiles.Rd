@@ -12,7 +12,7 @@ aggregateProfiles(list.profiles, max.size = 25, min.size = max.size)
 \item{max.size}{: the maximum number of rows to be selected in the final agregated matrix.
 default   max.size=25.}
 
-\item{min.size}{: this is the minimum number of rows rows to be selected in the final aggregated matrix. 
+\item{min.size}{: this is the minimum number of rows rows to be selected in the final aggregated matrix.
 If a group has less it will be discarded. By default min.size=max.size.}
 }
 \value{

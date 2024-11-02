@@ -13,7 +13,7 @@ connectivity(prof, method = "pearson", th = 0, soft = FALSE)
 
 \item{th}{: default 0, if >0 than this threshold will be applied to compute a hard threholded connectivity.}
 
-\item{soft}{: default = FALSE, if TRUE and when th > 0, the connectivity is computed as the soft threholded, sum of correlations 
+\item{soft}{: default = FALSE, if TRUE and when th > 0, the connectivity is computed as the soft threholded, sum of correlations
 above the threshold}
 }
 \value{

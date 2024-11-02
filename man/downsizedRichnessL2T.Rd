@@ -13,8 +13,8 @@ downsizedRichnessL2T(richness.list)
 A matrix with the samples in rows and the downsizing in columns
 }
 \description{
-This procedure takes a list that is the result of the downsizeGC.all method and transforms 
-it in a matrix of meaned downsied values. Each element of this list contains downsizing results for a given 
+This procedure takes a list that is the result of the downsizeGC.all method and transforms
+it in a matrix of meaned downsied values. Each element of this list contains downsizing results for a given
 sample. This result is a matrix in lines the number of simulations and in columns the different downsizing levels
 }
 \details{

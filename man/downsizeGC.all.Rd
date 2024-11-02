@@ -21,12 +21,12 @@ downsizeGC.all(
 \item{silent}{: default is FALSE prints the status of downsizing}
 }
 \value{
-a list of matrixes one per sample containing in rows a vector for each repetition and in columns the number of downsized genes for 
+a list of matrixes one per sample containing in rows a vector for each repetition and in columns the number of downsized genes for
        each downsizing level
 }
 \description{
-This function takes a matrix with raw reads counts and computes the number of genes at different 
-downsizing levels a given number of times. This is similar to the downsizeGC function but for optimization purposes 
+This function takes a matrix with raw reads counts and computes the number of genes at different
+downsizing levels a given number of times. This is similar to the downsizeGC function but for optimization purposes
 it downsizes at different thresholds all together
 }
 \details{

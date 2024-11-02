@@ -13,7 +13,7 @@ selectListSize(l, min.size = 0, max.size = 0, names = FALSE)
 
 \item{max.size}{: default = 0 and this has no action. This is the upper threshold for the element's size.}
 
-\item{names}{: default = FALSE the function will return a subset of the list, if TRUE the function will 
+\item{names}{: default = FALSE the function will return a subset of the list, if TRUE the function will
 return only the names of the elements of the list as identifiers.}
 }
 \value{

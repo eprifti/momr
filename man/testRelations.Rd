@@ -34,7 +34,7 @@ default restrict = rep(TRUE, ncol(data)) ie all the samples are selected}
 a matrix with analytical results (correlation tests) indicating rho, rho2, p and q values for each parameter tested
 }
 \description{
-This function applies a statistical test either a correlation (spearman, pearson), 
+This function applies a statistical test either a correlation (spearman, pearson),
      wilcoxon or t.test as a function of a given phenotype. It will return a matrix of probabilities
      p and q values along with the correlation coefficient or the enrichment variable when a binary parameter.
 }

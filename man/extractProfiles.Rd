@@ -22,7 +22,7 @@ This is used to extract multiple profiles and filtering the list with a minimal 
 a matrix or a list of profile matrixes
 }
 \description{
-This function extracts the profiles from a gene profile matrix of a group of genes or a list 
+This function extracts the profiles from a gene profile matrix of a group of genes or a list
 of groups of genes. It can also restrict the size of the result
 }
 \details{

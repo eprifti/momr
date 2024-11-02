@@ -18,11 +18,11 @@ projectOntoMGS(
 \item{list.mgs}{: this is the structured MGS information formatted as a list of geneids each corresponding to an MGS}
 
 \item{res.filt.mode}{: the filtering method, either 'perc' or 'size', default will be size.
-perc : genes projected onto mgs are only kept if they exceed a threshold percentage of the mgs size 
+perc : genes projected onto mgs are only kept if they exceed a threshold percentage of the mgs size
 size : genes projected onto mgs are only kept if they exceed a threshold number of genes}
 
 \item{res.filt.threshold}{: the threshold used to retain an mgs according to the filtering mode, either 'perc' or 'size'
-if 'perc' : the minimal percentage of genes projected onto mgs (number of genes projected / mgs size) needed to select a mgs 
+if 'perc' : the minimal percentage of genes projected onto mgs (number of genes projected / mgs size) needed to select a mgs
 if 'size' : the minimal number of genes projected onto mgs}
 
 \item{not_projected}{: whether a last genebag containing not projected genes is to be added to the list of selected mgs}

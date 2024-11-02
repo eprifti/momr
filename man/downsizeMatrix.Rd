@@ -24,11 +24,11 @@ downsizeMatrix(
 \item{silent}{: default is FALSE prints the status of downsizing}
 }
 \value{
-downsized read gene count matrix corresponding to the mean counts obtained with the selected number of independant 
+downsized read gene count matrix corresponding to the mean counts obtained with the selected number of independant
      downsizing procedure
 }
 \description{
-takes a matrix with raw read gene counts and converts it to a downsized matrix with identical number of mapped reads 
+takes a matrix with raw read gene counts and converts it to a downsized matrix with identical number of mapped reads
      for each sample (column)
 }
 \details{

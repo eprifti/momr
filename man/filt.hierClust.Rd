@@ -33,7 +33,7 @@ filt.hierClust(
 \item{filt}{: default is 0.5 and is the filtering threshold to be applied}
 }
 \value{
-it will return a matrix with samples in rows and their closely related ones on the columns along with the 
+it will return a matrix with samples in rows and their closely related ones on the columns along with the
 correlation score.
 }
 \description{

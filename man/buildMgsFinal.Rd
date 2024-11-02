@@ -36,10 +36,10 @@ buildMgsFinal(
 a list containing the final elements such as the 50 most connected genes, the mean vectors etc
 }
 \description{
-This function will take a vector of genes (to be transformed into a list of genebags) 
+This function will take a vector of genes (to be transformed into a list of genebags)
      or a list of genebags and will extract the profiles. Next genes well be ordered by connectivity
-     which is to be computed for each group and the 50 most connected are selected to consitute the 
-     marker genes. These will be then used to compute the mean vectors. A final object containing all 
+     which is to be computed for each group and the 50 most connected are selected to consitute the
+     marker genes. These will be then used to compute the mean vectors. A final object containing all
      this information along with taxonomical annotation will be returned
 }
 \details{

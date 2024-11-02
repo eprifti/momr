@@ -11,7 +11,7 @@ mapResults(folder = ".", pattern = "data_part", type = "rows", verbose = TRUE)
 
 \item{pattern}{: the pattern of the split files in the disk preceding the incremental number, default="data_part"}
 
-\item{type}{: a string c(rows, cols, list) indicating how to merge the data. This should be the same as the one 
+\item{type}{: a string c(rows, cols, list) indicating how to merge the data. This should be the same as the one
 used in the splitData procedure.}
 
 \item{verbose}{: print running status information (default = TRUE).}

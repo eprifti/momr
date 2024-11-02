@@ -19,9 +19,9 @@ computeUpsizedGC(richness.table, side = 2, keep.real = TRUE, plot = FALSE)
 matrix with the same dimensions as richness.table but with complete values.
 }
 \description{
-This procedure takes a table of meaned downsized gene counts where at least one column 
-is donwsized at a common minimal level. It uses this information to fit distributions of correlations 
-between different downsized levels and "predict" values for the samples that have not the needed 
+This procedure takes a table of meaned downsized gene counts where at least one column
+is donwsized at a common minimal level. It uses this information to fit distributions of correlations
+between different downsized levels and "predict" values for the samples that have not the needed
 sequencing depth. The fitting of the models is based on the n-1 to be closer to reality and avoid accumulating errors.
 }
 \details{

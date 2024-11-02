@@ -15,8 +15,8 @@ indexReadsGC(v, silent = TRUE)
 an character indexed vector
 }
 \description{
-for a given column of the raw count matrix this function indexes the count vector 
-       in a vector of reads of the length of the sum of the counts. It allows after to randomly 
+for a given column of the raw count matrix this function indexes the count vector
+       in a vector of reads of the length of the sum of the counts. It allows after to randomly
        select a subset
 }
 \details{
