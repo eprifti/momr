@@ -22,13 +22,13 @@ filt.hierClust(
 
 \item{margins}{: change margins of the graph (default = c(6, 6))}
 
-\item{side.col.c}{: a vector of colors to be applied in the columns, usually depincting a class}
+\item{side.col.c}{: a vector of colors to be applied in the columns, usually depicting a class}
 
-\item{side.col.r}{: a vector of colors to be applied in the rows, usually depincting a class}
+\item{side.col.r}{: a vector of colors to be applied in the rows, usually depicting a class}
 
 \item{size}{: the number of samples in the resulting ordered matrix}
 
-\item{plot}{: logical default TRUE. It will plot the heatmap of the similarity with the hierchical clustering}
+\item{plot}{: logical default TRUE. It will plot the heatmap of the similarity with the hierarchical clustering}
 
 \item{filt}{: default is 0.5 and is the filtering threshold to be applied}
 }

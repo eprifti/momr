@@ -1,21 +1,26 @@
 #' \code{testRelations}
 #' @title testRelations
 #' @export
-#' @description This function applies a statistical test either a correlation (spearman, pearson),
-#'      wilcoxon or t.test as a function of a given phenotype. It will return a matrix of probabilities
-#'      p and q values along with the correlation coefficient or the enrichment variable when a binary parameter.
+#' @description This function applies a statistical test either a correlation 
+#'      (spearman, pearson), wilcoxon or t.test as a function of a given phenotype. 
+#'      It will return a matrix of probabilities p and q values along with the 
+#'      correlation coefficient or the enrichment variable when a binary parameter.
 #' @author Edi Prifti & Emmanuelle Le Chatelier
 #' @param data : frequency matrix with gene_ids in the rownames
 #' @param trait : a vector with the trait to test, binary or numerical variable
 #' @param type : a character string indicating the type of test to be applied
-#' @param restrict : an optional logical vector to select a subset of the samples to perform the test
-#'      default restrict = rep(TRUE, ncol(data)) ie all the samples are selected
-#' @param multiple.adjust : type of multiple adjustment default is "BH" i.e. Benjamini & Hochberg method
+#' @param restrict : an optional logical vector to select a subset of the 
+#'      samples to perform the test default restrict = rep(TRUE, ncol(data)) 
+#'      i.e. all the samples are selected
+#' @param multiple.adjust : type of multiple adjustment default is "BH" i.e. 
+#'      Benjamini & Hochberg method
 #' @param paired : logical with default FALSE wether the test should be paired or not
 #' @param debug : default FALSE, when TRUE the progress is printed each 1000 steps
-#' @return a matrix with analytical results (correlation tests) indicating rho, rho2, p and q values for each parameter tested
-#' @note New addon taking into account a trait for correlation, when it is a two class variable with the same number of elements
-#'      a correlation between both groups is performed
+#' @return a matrix with analytical results (correlation tests) indicating rho, 
+#'      rho2, p and q values for each parameter tested along with the status of the test
+#' @note New add on taking into account a trait for correlation, when it is a two 
+#'      class variable with the same number of elements a correlation between 
+#'      both groups is performed
 testRelations <- function (data,
                            trait,
                            type,
@@ -313,17 +318,18 @@ testRelations <- function (data,
 #' @export
 #' @import gplots
 #' @export
-#' @description This function computes the pairwise distance between samples and computes a hierarchical clustering
-#' that is further depicted as a heatmap graphic
+#' @description This function computes the pairwise distance between samples 
+#'      and computes a hierarchical clustering that is further depicted as a 
+#'      heatmap graphic. The distance is computed as 1-correlation.
 #' @author Edi Prifti
 #' @param data : frequency matrix with gene_ids in the rownames
 #' @param side : the distance can be performed on the columns or on the rows
 #' @param dist : the type of distance used. By default this is correlation based similarity
-#' @param cor.type : when correlation matrix, the default is spearman
+#' @param cor.type : when correlation matrix, the default is Spearman
 #' @param hclust.method : the hierarchical clustering method, by default it is the ward.D method
-#' @param side.col.c : a vector of colors to be applied in the columns, usually depincting a class
-#' @param side.col.r : a vector of colors to be applied in the rows, usually depincting a class
-#' @param plot : logical default TRUE. It will plot the heatmap of the similarity with the hierchical clustering
+#' @param side.col.c : a vector of colors to be applied in the columns, usually depicting a class
+#' @param side.col.r : a vector of colors to be applied in the rows, usually depicting a class
+#' @param plot : logical default TRUE. It will plot the heatmap of the similarity with the hierarchical clustering
 #' @return it will return a list of three variables, the correlation matrix, the distance matrix and the hclust object
 #' @note updated hierClust functions by elechat april 7th 2015 added options SideColors added + spearman == pearson(rank)
 hierClust <- function (data,
@@ -447,10 +453,10 @@ hierClust <- function (data,
 #' @param mat.rho : square correlation matrix with ids (can be used for also other than just samples)
 #' @param hclust.method : the hierarchical clustering method, by default it is the ward.D method
 #' @param margins : change margins of the graph (default = c(6, 6))
-#' @param side.col.c : a vector of colors to be applied in the columns, usually depincting a class
-#' @param side.col.r : a vector of colors to be applied in the rows, usually depincting a class
+#' @param side.col.c : a vector of colors to be applied in the columns, usually depicting a class
+#' @param side.col.r : a vector of colors to be applied in the rows, usually depicting a class
 #' @param size : the number of samples in the resulting ordered matrix
-#' @param plot : logical default TRUE. It will plot the heatmap of the similarity with the hierchical clustering
+#' @param plot : logical default TRUE. It will plot the heatmap of the similarity with the hierarchical clustering
 #' @param filt : default is 0.5 and is the filtering threshold to be applied
 #' @return it will return a matrix with samples in rows and their closely related ones on the columns along with the
 #' correlation score.
@@ -593,7 +599,8 @@ filt.hierClust <- function (mat.rho,
 #' @author Edi Prifti
 #' @param modelobject : a linear model object as produced by lm()
 #' @return a p-value
-lmp <- function (modelobject) {
+lmp <- function (modelobject) 
+{
   if (class(modelobject) != "lm")
     stop("Not an object of class 'lm' ")
   f <- summary(modelobject)$fstatistic
@@ -613,7 +620,8 @@ lmp <- function (modelobject) {
 #' @return a list of two matrixes containing the p-values and the multiple testing adjustment.
 phenoPairwiseRelations <- function(data,
                                    adjust = "BH",
-                                   verbose = FALSE) {
+                                   verbose = FALSE) 
+{
   #require(nortest)
   #require(Hmisc)
   data.relations <- matrix(NA, ncol(data), ncol(data))
@@ -754,7 +762,8 @@ phenoPairwiseRelations <- function(data,
 #' @param interest : a vector of variable names of interest.
 #' @param threshold : default 0.05 needed to select significant relations
 #' @return a list of vectors containing p-values or q-values along with the names of the variables.
-extractSignificant <- function(relation.matrix, interest, threshold = 0.05) {
+extractSignificant <- function(relation.matrix, interest, threshold = 0.05) 
+{
   res <- list()
   for (i in 1:length(interest)) {
     tmp.val <- relation.matrix[, interest[i]]

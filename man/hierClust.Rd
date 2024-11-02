@@ -22,22 +22,23 @@ hierClust(
 
 \item{dist}{: the type of distance used. By default this is correlation based similarity}
 
-\item{cor.type}{: when correlation matrix, the default is spearman}
+\item{cor.type}{: when correlation matrix, the default is Spearman}
 
 \item{hclust.method}{: the hierarchical clustering method, by default it is the ward.D method}
 
-\item{side.col.c}{: a vector of colors to be applied in the columns, usually depincting a class}
+\item{side.col.c}{: a vector of colors to be applied in the columns, usually depicting a class}
 
-\item{side.col.r}{: a vector of colors to be applied in the rows, usually depincting a class}
+\item{side.col.r}{: a vector of colors to be applied in the rows, usually depicting a class}
 
-\item{plot}{: logical default TRUE. It will plot the heatmap of the similarity with the hierchical clustering}
+\item{plot}{: logical default TRUE. It will plot the heatmap of the similarity with the hierarchical clustering}
 }
 \value{
 it will return a list of three variables, the correlation matrix, the distance matrix and the hclust object
 }
 \description{
-This function computes the pairwise distance between samples and computes a hierarchical clustering
-that is further depicted as a heatmap graphic
+This function computes the pairwise distance between samples 
+     and computes a hierarchical clustering that is further depicted as a 
+     heatmap graphic. The distance is computed as 1-correlation.
 }
 \details{
 \code{hierClust}
