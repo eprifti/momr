@@ -279,3 +279,102 @@ plotMGSQuality <- function(dat, main = "mgs", return.scores = TRUE)
   if (return.scores) 
     return(scores)
 }
+
+#' ggBarcode
+#'
+#' Creates a barcode-style heatmap visualization from a matrix-like dataset.
+#' The heatmap uses a discrete color palette to represent value ranges and 
+#' allows faceting by a specified cluster.
+#'
+#' @param data A matrix or data frame containing numeric values to plot. Rows represent samples, and columns represent features.
+#' @param cluster A character or factor vector specifying cluster labels for columns in the dataset. Used for faceting the plot.
+#' @param main A string specifying the title of the plot.
+#'
+#' @return A ggplot2 object representing the heatmap.
+#'
+#' @details
+#' - The function discretizes values in the dataset into predefined bins, each associated with a specific color.
+#' - Rows are displayed in reverse order (from bottom to top).
+#' - Faceting is supported based on the `cluster` parameter.
+#' - The legend includes detailed ranges for each color bin.
+#'
+#' @examples
+#' set.seed(123)
+#' data <- matrix(runif(100, min = 0, max = 0.002), nrow = 10, ncol = 10)
+#' cluster <- rep(c("Cluster1", "Cluster2"), length.out = ncol(data))
+#' ggBarcode(data, cluster = cluster, main = "Example Barcode Plot")
+#'
+#' @import ggplot2
+#' @import dplyr
+#' @import tidyr
+#' @import tibble
+#'
+#' @export
+ggBarcode <- function(data, cluster = NULL, main = "") {
+  # Define color palette and breaks
+  cols <- data.frame(
+    val = c(0, 1e-07, 4e-07, 1.6e-06, 6.4e-06, 2.56e-05, 
+            0.0001024, 0.0004096, 0.0016384),
+    col = c("white", "deepskyblue", "blue", "green3", "yellow", 
+            "orange", "red", "orangered2", "darkred")
+  )
+  
+  # Convert data to long format for ggplot
+  long_data <- data %>%
+    as.data.frame() %>%
+    dplyr::mutate(row = dplyr::row_number()) %>%  # Assign numeric row identifiers
+    pivot_longer(
+      cols = -row,
+      names_to = "column",
+      values_to = "value"
+    ) %>%
+    dplyr::mutate(
+      row = max(row) - row + 1,  # Invert row order
+      value_bin = cut(value, breaks = c(cols$val, Inf), labels = cols$col, right = FALSE)
+    )
+  
+  # Add a cluster column if specified
+  if (!is.null(cluster)) {
+    cluster <- setNames(cluster, colnames(data))  # Ensure cluster is named
+    long_data <- long_data %>%
+      dplyr::mutate(cluster = cluster[column])  # Match cluster with column names
+  }
+  
+  # Define legend labels with value ranges
+  legend_labels <- paste0(
+    formatC(cols$val[-length(cols$val)], format = "e", digits = 2), 
+    " - ",
+    formatC(cols$val[-1], format = "e", digits = 2)
+  )
+  legend_labels <- c(legend_labels, paste0(">", formatC(cols$val[length(cols$val)], format = "e", digits = 2)))
+  
+  # Generate the heatmap
+  p <- ggplot(long_data, aes(x = column, y = row, fill = value_bin)) +
+    geom_tile() +
+    scale_fill_manual(
+      values = setNames(cols$col, cols$col),  # Map colors directly to bins
+      labels = legend_labels,  # Add value ranges to legend
+      name = "Value Range"
+    ) +
+    labs(
+      title = main,
+      x = "Columns",
+      y = "Rows",
+      fill = "Value Range"
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.x = element_blank(),  # Remove column labels
+      axis.ticks.x = element_blank(), # Remove column ticks
+      axis.text.y = element_blank(),  # Optional: remove row labels
+      axis.ticks.y = element_blank(), # Optional: remove row ticks
+      legend.position = "bottom"      # Place legend at the bottom
+    )
+  
+  # Add faceting by cluster if present
+  if (!is.null(cluster)) {
+    p <- p + facet_grid(~ cluster, scales = "free", space = "free")
+  }
+  
+  return(p)
+}
